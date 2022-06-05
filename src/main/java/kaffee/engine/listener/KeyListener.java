@@ -1,4 +1,4 @@
-package kaffee.engine;
+package kaffee.engine.listener;
 
 import static org.lwjgl.glfw.GLFW.GLFW_PRESS;
 import static org.lwjgl.glfw.GLFW.GLFW_RELEASE;
