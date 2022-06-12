@@ -12,8 +12,7 @@
         <maven.compiler.source>18</maven.compiler.source>
         <maven.compiler.target>18</maven.compiler.target>
         <lwjgl.version>3.3.1</lwjgl.version>
-        <!-- Change to native OS -->
-        <lwjgl.natives>natives-macos</lwjgl.natives>
+        <lwjgl.natives>natives-windows</lwjgl.natives>
     </properties>
 
     <dependencyManagement>
@@ -39,6 +38,11 @@
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
             <version>3.10</version>
+        </dependency>
+        <dependency>
+            <groupId>org.joml</groupId>
+            <artifactId>joml</artifactId>
+            <version>1.10.4</version>
         </dependency>
         <dependency>
             <groupId>org.lwjgl</groupId>

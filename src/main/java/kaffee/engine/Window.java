@@ -11,6 +11,9 @@ import org.lwjgl.glfw.GLFW;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.opengl.GL;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Objects;
 
 import static org.lwjgl.glfw.Callbacks.glfwFreeCallbacks;
@@ -58,6 +61,11 @@ public class Window
         this.title = "Kaffee";
     }
 
+    /**
+     * Retrieves the window singleton instance.
+     * @return
+     *      Window instance.
+     */
     public static Window get()
     {
         if(Objects.isNull(Window.window))
@@ -67,9 +75,24 @@ public class Window
         return Window.window;
     }
 
+    public static Scene getCurrentScene()
+    {
+        return get().currentScene;
+
+    }
+
     public void run()
     {
-        System.out.println("Running Kaffee!");
+
+        try
+        {
+            System.out.println("\u001B[31m" + new String(Files.readAllBytes(Paths.get("assets/resources/KaffeeBootText"))) + "\u001B[0m");
+        }
+        catch (IOException e)
+        {
+            throw new RuntimeException("ERROR: Missing Kaffee resource.");
+        }
+
         System.out.println("LWJGL - Version: " + Version.getVersion());
         initialize();
 
@@ -90,6 +113,7 @@ public class Window
      */
     private void initialize()
     {
+        System.out.println("INFO: Initializing GLFW Window.");
         // Error callback setup
         GLFWErrorCallback.createPrint(System.err).set();
 
@@ -106,12 +130,15 @@ public class Window
         glfwWindowHint(GLFW.GLFW_MAXIMIZED, GLFW_TRUE);
 
         // Create Window
+        System.out.println("INFO: Creating window.");
         this.glfwWindow = glfwCreateWindow(this.width, this.height, this.title, NULL, NULL);
         if(glfwWindow == NULL)
         {
             throw new IllegalStateException("Failed to initialize GLFW window.");
         }
 
+        // Set input callbacks for mouse and keyboard so user input can be accepted
+        System.out.println("INFO: Setting input listener callbacks.");
         glfwSetCursorPosCallback(glfwWindow, MouseListener::mousePositionCallback);
         glfwSetMouseButtonCallback(glfwWindow, MouseListener::mouseButtonCallback);
         glfwSetScrollCallback(glfwWindow, MouseListener::mouseScrollCallback);
@@ -128,6 +155,7 @@ public class Window
 
         GL.createCapabilities();
 
+        // Initial scene
         Window.changeScene(0);
     }
 
@@ -145,6 +173,7 @@ public class Window
             glClearColor(get().r, get().g, get().b, get().alpha);
             glClear(GL_COLOR_BUFFER_BIT);
 
+            // Update the scene.
             if(dt >= 0)
             {
                 currentScene.update(dt);
@@ -155,7 +184,7 @@ public class Window
             endTime = Time.getTime();
 
             dt = endTime - beginTime;
-            System.out.println(1.0f / dt + "FPS");
+            //System.out.println("FPS: " + 1.0f / dt);
 
             beginTime = endTime;
         }
@@ -168,14 +197,45 @@ public class Window
             case 0:
                 currentScene = new LevelEditorScene();
                 currentScene.initialize();
+                currentScene.start();
                 break;
             case 1:
                 currentScene = new LevelScene();
                 currentScene.initialize();
+                currentScene.start();
                 break;
             default:
                 assert false: "Unknown scene: '" + newScene + "'.";
                 break;
         }
+    }
+
+    public int getWidth()
+    {
+        return width;
+    }
+
+    public void setWidth(int width)
+    {
+        this.width = width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public void setHeight(int height)
+    {
+        this.height = height;
+    }
+
+    public String getTitle()
+    {
+        return title;
+    }
+
+    public void setTitle(String title)
+    {
+        this.title = title;
     }
 }
