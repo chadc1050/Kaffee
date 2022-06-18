@@ -4,8 +4,9 @@ import kaffee.engine.Camera;
 import kaffee.engine.GameObject;
 import kaffee.engine.Transform;
 import kaffee.engine.components.SpriteRenderer;
+import kaffee.engine.components.SpriteSheet;
+import kaffee.engine.util.AssetPool;
 import org.joml.Vector2f;
-import org.joml.Vector4f;
 
 public class LevelEditorScene extends Scene
 {
@@ -16,28 +17,36 @@ public class LevelEditorScene extends Scene
     @Override
     public void initialize()
     {
-        this.camera = new Camera(new Vector2f());
+        loadResources();
 
-        int xOffset = 10;
-        int yOffset = 10;
+        this.camera = new Camera(new Vector2f(0, 0));
 
-        float totalWidth = ((float) (600 - xOffset * 2));
-        float totalHeight = ((float) (300 - yOffset * 2));
-        float sizeX = totalWidth / 100.0f;
-        float sizeY = totalHeight / 100.0f;
+        SpriteSheet sprites = AssetPool.getSpriteSheet("assets/sprites/kaffee/Stardew Valley - Dog Blonde.png");
 
-        for(int x = 0; x < 100; x++)
-        {
-            for(int y = 0; y < 100; y++)
-            {
-                float xPos = xOffset + (x * sizeX);
-                float yPos = yOffset + (y * sizeY);
+        GameObject gameObject = new GameObject("Dog0", new Transform(new Vector2f(50, 50), new Vector2f(100, 100)));
+        GameObject gameObject1 = new GameObject("Dog1", new Transform(new Vector2f(150, 50), new Vector2f(100, 100)));
+        GameObject gameObject2 = new GameObject("Dog2", new Transform(new Vector2f(250, 50), new Vector2f(100, 100)));
+        GameObject gameObject3 = new GameObject("Dog3", new Transform(new Vector2f(350, 50), new Vector2f(100, 100)));
+        GameObject gameObject4 = new GameObject("Dog4", new Transform(new Vector2f(450, 50), new Vector2f(100, 100)));
+        GameObject gameObject5 = new GameObject("Dog5", new Transform(new Vector2f(550, 50), new Vector2f(100, 100)));
+        GameObject gameObject6 = new GameObject("Dog6", new Transform(new Vector2f(650, 50), new Vector2f(100, 100)));
 
-                GameObject gameObject = new GameObject("Obj" + x + " " + y, new Transform(new Vector2f(xPos, yPos), new Vector2f(sizeX, sizeY)));
-                gameObject.addComponent(new SpriteRenderer(new Vector4f(xPos / totalWidth, yPos / totalHeight, 1, 1)));
-                this.addGameObjectToScene(gameObject);
-            }
-        }
+        gameObject.addComponent(new SpriteRenderer(sprites.getSprite(28)));
+        gameObject1.addComponent(new SpriteRenderer(sprites.getSprite(29)));
+        gameObject2.addComponent(new SpriteRenderer(sprites.getSprite(30)));
+        gameObject3.addComponent(new SpriteRenderer(sprites.getSprite(31)));
+        gameObject4.addComponent(new SpriteRenderer(sprites.getSprite(32)));
+        gameObject5.addComponent(new SpriteRenderer(sprites.getSprite(33)));
+        gameObject6.addComponent(new SpriteRenderer(sprites.getSprite(34)));
+
+        this.addGameObjectsToScene(gameObject, gameObject1, gameObject2, gameObject3, gameObject4, gameObject5, gameObject6);
+    }
+
+    private void loadResources()
+    {
+        AssetPool.getShader("assets/shaders/default.glsl");
+        AssetPool.addSpriteSheet("assets/sprites/kaffee/Stardew Valley - Dog Blonde.png",
+                new SpriteSheet(AssetPool.getTexture("assets/sprites/kaffee/Stardew Valley - Dog Blonde.png"),32, 32, 36, 0));
     }
 
     @Override

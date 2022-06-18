@@ -32,9 +32,13 @@ public class Renderer
         {
             if(batchRenderer.hasRoom())
             {
-                batchRenderer.addSprite(spriteRenderer);
-                added = true;
-                break;
+                Texture texture = spriteRenderer.getTexture();
+                if(texture == null || (batchRenderer.hasTexture(texture) || batchRenderer.hasTextureRoom()))
+                {
+                    batchRenderer.addSprite(spriteRenderer);
+                    added = true;
+                    break;
+                }
             }
         }
 

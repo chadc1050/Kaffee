@@ -6,39 +6,23 @@ import kaffee.engine.scene.LevelEditorScene;
 import kaffee.engine.scene.LevelScene;
 import kaffee.engine.scene.Scene;
 import kaffee.engine.util.Time;
+import org.apache.maven.model.Model;
+import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
+import org.codehaus.plexus.util.xml.pull.XmlPullParserException;
 import org.lwjgl.Version;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.opengl.GL;
 
+import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Objects;
 
 import static org.lwjgl.glfw.Callbacks.glfwFreeCallbacks;
-import static org.lwjgl.glfw.GLFW.GLFW_FALSE;
-import static org.lwjgl.glfw.GLFW.GLFW_TRUE;
-import static org.lwjgl.glfw.GLFW.glfwCreateWindow;
-import static org.lwjgl.glfw.GLFW.glfwDefaultWindowHints;
-import static org.lwjgl.glfw.GLFW.glfwDestroyWindow;
-import static org.lwjgl.glfw.GLFW.glfwInit;
-import static org.lwjgl.glfw.GLFW.glfwMakeContextCurrent;
-import static org.lwjgl.glfw.GLFW.glfwPollEvents;
-import static org.lwjgl.glfw.GLFW.glfwSetCursorPosCallback;
-import static org.lwjgl.glfw.GLFW.glfwSetErrorCallback;
-import static org.lwjgl.glfw.GLFW.glfwSetKeyCallback;
-import static org.lwjgl.glfw.GLFW.glfwSetMouseButtonCallback;
-import static org.lwjgl.glfw.GLFW.glfwSetScrollCallback;
-import static org.lwjgl.glfw.GLFW.glfwShowWindow;
-import static org.lwjgl.glfw.GLFW.glfwSwapBuffers;
-import static org.lwjgl.glfw.GLFW.glfwSwapInterval;
-import static org.lwjgl.glfw.GLFW.glfwTerminate;
-import static org.lwjgl.glfw.GLFW.glfwWindowHint;
-import static org.lwjgl.glfw.GLFW.glfwWindowShouldClose;
-import static org.lwjgl.opengl.GL11.GL_COLOR_BUFFER_BIT;
-import static org.lwjgl.opengl.GL11.glClear;
-import static org.lwjgl.opengl.GL11.glClearColor;
+import static org.lwjgl.glfw.GLFW.*;
+import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.system.MemoryUtil.NULL;
 
 public class Window
@@ -83,19 +67,26 @@ public class Window
 
     public void run()
     {
-
+        // Log version information
         try
         {
             System.out.println("\u001B[31m" + new String(Files.readAllBytes(Paths.get("assets/resources/KaffeeBootText"))) + "\u001B[0m");
+            MavenXpp3Reader reader = new MavenXpp3Reader();
+            Model model = reader.read(new FileReader("pom.xml"));
+            System.out.println("Kaffee - Version: " + model.getVersion());
         }
         catch (IOException e)
         {
             throw new RuntimeException("ERROR: Missing Kaffee resource.");
         }
-
+        catch (XmlPullParserException e)
+        {
+            throw new RuntimeException("ERROR: Missing dependencies in POM file.");
+        }
         System.out.println("LWJGL - Version: " + Version.getVersion());
         initialize();
 
+        // Loop window instance
         loop();
 
         // Free memory
@@ -139,6 +130,7 @@ public class Window
 
         // Set input callbacks for mouse and keyboard so user input can be accepted
         System.out.println("INFO: Setting input listener callbacks.");
+
         glfwSetCursorPosCallback(glfwWindow, MouseListener::mousePositionCallback);
         glfwSetMouseButtonCallback(glfwWindow, MouseListener::mouseButtonCallback);
         glfwSetScrollCallback(glfwWindow, MouseListener::mouseScrollCallback);
@@ -170,7 +162,8 @@ public class Window
             // Poll events
             glfwPollEvents();
 
-            glClearColor(get().r, get().g, get().b, get().alpha);
+            // Set the clear color for the window
+            glClearColor(r, g, b, alpha);
             glClear(GL_COLOR_BUFFER_BIT);
 
             // Update the scene.

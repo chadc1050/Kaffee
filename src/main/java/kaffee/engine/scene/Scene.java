@@ -44,6 +44,22 @@ public abstract class Scene
         }
     }
 
+    public void addGameObjectsToScene(GameObject... gameObjectsToAdd)
+    {
+        for (GameObject gameObject : gameObjectsToAdd)
+        {
+            if(!isRunning)
+            {
+                gameObjects.add(gameObject);
+            }
+            else {
+                gameObjects.add(gameObject);
+                gameObject.start();
+                this.renderer.add(gameObject);
+            }
+        }
+    }
+
     public Camera getCamera()
     {
         return this.camera;

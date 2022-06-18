@@ -235,6 +235,16 @@ public class Shader
         glUniform1i(varLocation, slot);
     }
 
+    public void uploadIntArray(String varName, int[] array)
+    {
+        int varLocation = glGetUniformLocation(shaderProgramID, varName);
+
+        // Make sure the shader is being used.
+        use();
+
+        glUniform1iv(varLocation, array);
+    }
+
     public void use()
     {
         if(!beingUsed)
