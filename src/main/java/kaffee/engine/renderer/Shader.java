@@ -22,11 +22,6 @@ public class Shader
 
     private String filePath;
 
-    /**
-     *
-     * @param filepath
-     *      Shader file path.
-     */
     public Shader(String filepath)
     {
         this.filePath = filepath;
@@ -75,9 +70,6 @@ public class Shader
         }
     }
 
-    /**
-     *
-     */
     public void compile()
     {
         // Create and Compile shaders

@@ -1,5 +1,6 @@
 package kaffee.engine.components;
 
+import imgui.ImGui;
 import kaffee.engine.Component;
 import kaffee.engine.Transform;
 import kaffee.engine.renderer.Texture;
@@ -23,6 +24,7 @@ public class SpriteRenderer extends Component
     {
         this.sprite = sprite;
         this.color = new Vector4f(1, 1, 1, 1);
+        this.isDirty = true;
     }
 
     @Override
@@ -39,6 +41,13 @@ public class SpriteRenderer extends Component
             this.gameObject.transform.copy(this.lastTransform);
             isDirty = true;
         }
+    }
+
+    @Override
+    public void imGUI()
+    {
+        float[] imColor = {color.x, color.y, color.z, color.w};
+        ImGui.colorPicker4("Color Picker: ", imColor);
     }
 
     public Texture getTexture()
@@ -80,4 +89,5 @@ public class SpriteRenderer extends Component
     {
         this.isDirty = false;
     }
+
 }

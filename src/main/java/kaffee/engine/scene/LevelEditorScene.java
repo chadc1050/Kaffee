@@ -1,5 +1,6 @@
 package kaffee.engine.scene;
 
+import imgui.ImGui;
 import kaffee.engine.Camera;
 import kaffee.engine.GameObject;
 import kaffee.engine.Transform;
@@ -24,23 +25,11 @@ public class LevelEditorScene extends Scene
 
         SpriteSheet sprites = AssetPool.getSpriteSheet("assets/sprites/kaffee/Stardew Valley - Dog Blonde.png");
 
-        GameObject gameObject = new GameObject("Dog0", new Transform(new Vector2f(50, 50), new Vector2f(100, 100)));
-        GameObject gameObject1 = new GameObject("Dog1", new Transform(new Vector2f(150, 50), new Vector2f(100, 100)));
-        GameObject gameObject2 = new GameObject("Dog2", new Transform(new Vector2f(250, 50), new Vector2f(100, 100)));
-        GameObject gameObject3 = new GameObject("Dog3", new Transform(new Vector2f(350, 50), new Vector2f(100, 100)));
-        GameObject gameObject4 = new GameObject("Dog4", new Transform(new Vector2f(450, 50), new Vector2f(100, 100)));
-        GameObject gameObject5 = new GameObject("Dog5", new Transform(new Vector2f(550, 50), new Vector2f(100, 100)));
-        this.obj1 = new GameObject("Dog6", new Transform(new Vector2f(650, 50), new Vector2f(100, 100)));
+        this.obj1 = new GameObject("Dog6", new Transform(new Vector2f(650, 50), new Vector2f(100, 100)), 1);
 
-        gameObject.addComponent(new SpriteRenderer(sprites.getSprite(28)));
-        gameObject1.addComponent(new SpriteRenderer(sprites.getSprite(29)));
-        gameObject2.addComponent(new SpriteRenderer(sprites.getSprite(30)));
-        gameObject3.addComponent(new SpriteRenderer(sprites.getSprite(31)));
-        gameObject4.addComponent(new SpriteRenderer(sprites.getSprite(32)));
-        gameObject5.addComponent(new SpriteRenderer(sprites.getSprite(33)));
         this.obj1.addComponent(new SpriteRenderer(sprites.getSprite(34)));
 
-        this.addGameObjectsToScene(gameObject, gameObject1, gameObject2, gameObject3, gameObject4, gameObject5, this.obj1);
+        this.addGameObjectsToScene(this.obj1);
     }
 
     private void loadResources()
@@ -60,5 +49,13 @@ public class LevelEditorScene extends Scene
             gameObject.update(deltaTime);
         }
         this.renderer.render();
+    }
+
+    @Override
+    public void imGUI()
+    {
+        ImGui.begin("Test Window.");
+        ImGui.text("Some random text.");
+        ImGui.end();
     }
 }

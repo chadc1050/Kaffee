@@ -8,19 +8,22 @@ public class GameObject
     private String name;
     private List<Component> components;
     public Transform transform;
+    private int zIndex;
 
-    public GameObject(String name)
+    public GameObject(String name, int zIndex)
     {
         this.name = name;
         this.components = new ArrayList<>();
         this.transform = new Transform();
+        this.zIndex = zIndex;
     }
 
-    public GameObject(String name, Transform transform)
+    public GameObject(String name, Transform transform, int zIndex)
     {
         this.name = name;
         this.components = new ArrayList<>();
         this.transform = transform;
+        this.zIndex = zIndex;
     }
 
     public void start()
@@ -70,4 +73,16 @@ public class GameObject
         }
     }
 
+    public void imGUI()
+    {
+        for(Component component : components)
+        {
+            component.imGUI();
+        }
+    }
+
+    public int getZIndex()
+    {
+        return zIndex;
+    }
 }

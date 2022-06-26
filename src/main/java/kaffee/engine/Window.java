@@ -27,13 +27,14 @@ import static org.lwjgl.system.MemoryUtil.NULL;
 
 public class Window
 {
-    public float r, g, b = 0.0f;
+    public float r, g, b = 1.0f;
     public float alpha = 1.0f;
 
     private int width, height;
     private String title;
     private long glfwWindow;
     private static Scene currentScene;
+    private IMGuiLayer imGuiLayer;
 
 
     private static Window window = null;
@@ -135,6 +136,10 @@ public class Window
         glfwSetMouseButtonCallback(glfwWindow, MouseListener::mouseButtonCallback);
         glfwSetScrollCallback(glfwWindow, MouseListener::mouseScrollCallback);
         glfwSetKeyCallback(glfwWindow, KeyListener::keyCallback);
+        glfwSetWindowSizeCallback(glfwWindow, (w, newWidth, newHeight) -> {
+            Window.setWidth(newWidth);
+            Window.setHeight(newHeight);
+        });
 
         // Make the OpenGL context current
         glfwMakeContextCurrent(glfwWindow);
@@ -146,6 +151,14 @@ public class Window
         glfwShowWindow(glfwWindow);
 
         GL.createCapabilities();
+
+        // Config blending
+        glEnable(GL_BLEND);
+        glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
+
+        // IMGUI
+        this.imGuiLayer = new IMGuiLayer(glfwWindow);
+        this.imGuiLayer.initImGui();
 
         // Initial scene
         Window.changeScene(0);
@@ -171,6 +184,8 @@ public class Window
             {
                 currentScene.update(dt);
             }
+
+            this.imGuiLayer.update(dt, currentScene);
 
             glfwSwapBuffers(glfwWindow);
 
@@ -203,28 +218,28 @@ public class Window
         }
     }
 
-    public int getWidth()
+    public static int getWidth()
     {
-        return width;
+        return get().width;
     }
 
-    public void setWidth(int width)
+    public static void setWidth(int width)
     {
-        this.width = width;
+        get().width = width;
     }
 
-    public int getHeight() {
-        return height;
+    public static int getHeight() {
+        return get().height;
     }
 
-    public void setHeight(int height)
+    public static void setHeight(int height)
     {
-        this.height = height;
+        get().height = height;
     }
 
     public String getTitle()
     {
-        return title;
+        return get().title;
     }
 
     public void setTitle(String title)

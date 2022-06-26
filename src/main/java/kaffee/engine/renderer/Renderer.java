@@ -4,6 +4,7 @@ import kaffee.engine.GameObject;
 import kaffee.engine.components.SpriteRenderer;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Renderer
@@ -44,10 +45,11 @@ public class Renderer
 
         if(!added)
         {
-            BatchRenderer newBatchRenderer = new BatchRenderer(MAX_BATCH_SIZE);
+            BatchRenderer newBatchRenderer = new BatchRenderer(MAX_BATCH_SIZE, spriteRenderer.gameObject.getZIndex());
             newBatchRenderer.start();
             batchRenderers.add(newBatchRenderer);
             newBatchRenderer.addSprite(spriteRenderer);
+            Collections.sort(batchRenderers);
         }
     }
 

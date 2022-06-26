@@ -4,7 +4,9 @@ public abstract class Component
 {
     public GameObject gameObject = null;
 
-    public abstract void update(float deltaTime);
+    public void update(float deltaTime) {}
 
     public void start() {}
+
+    public void imGUI() {}
 }

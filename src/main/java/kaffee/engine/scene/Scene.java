@@ -1,5 +1,6 @@
 package kaffee.engine.scene;
 
+import imgui.ImGui;
 import kaffee.engine.Camera;
 import kaffee.engine.GameObject;
 import kaffee.engine.renderer.Renderer;
@@ -12,6 +13,7 @@ public abstract class Scene
     protected Camera camera;
     protected List<GameObject> gameObjects = new ArrayList<>();
     protected Renderer renderer = new Renderer();
+    protected GameObject activeGameObject = null;
 
     private boolean isRunning = false;
 
@@ -58,6 +60,23 @@ public abstract class Scene
                 this.renderer.add(gameObject);
             }
         }
+    }
+
+    public void sceneIMGUI()
+    {
+        if(activeGameObject != null)
+        {
+            ImGui.begin("Inspector");
+            activeGameObject.imGUI();
+            ImGui.end();
+        }
+
+        imGUI();
+    }
+
+    public void imGUI()
+    {
+
     }
 
     public Camera getCamera()

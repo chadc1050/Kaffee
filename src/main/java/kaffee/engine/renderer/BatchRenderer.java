@@ -14,7 +14,7 @@ import static org.lwjgl.opengl.GL20.*;
 import static org.lwjgl.opengl.GL30.glBindVertexArray;
 import static org.lwjgl.opengl.GL30.glGenVertexArrays;
 
-public class BatchRenderer
+public class BatchRenderer implements Comparable<BatchRenderer>
 {
     private final int VERTEX_SIZE = 9;
     private final int VERTEX_SIZE_BYTES = VERTEX_SIZE * Float.BYTES;
@@ -39,9 +39,11 @@ public class BatchRenderer
     private int vaoID, vboID;
     private int maxBatchSize;
     private Shader shader;
+    private int zIndex;
 
-    public BatchRenderer(int maxBatchSize)
+    public BatchRenderer(int maxBatchSize, int zIndex)
     {
+        this.zIndex = zIndex;
         shader = AssetPool.getShader("assets/shaders/default.glsl");
         shader.compile();
         this.sprites = new SpriteRenderer[maxBatchSize];
@@ -55,8 +57,7 @@ public class BatchRenderer
         this.hasRoom = true;
     }
 
-    public void start()
-    {
+    public void start() {
         // Generate and bind a vertex array object.
         vaoID = glGenVertexArrays();
         glBindVertexArray(vaoID);
@@ -85,8 +86,7 @@ public class BatchRenderer
         glEnableVertexAttribArray(3);
     }
 
-    public void addSprite(SpriteRenderer spriteRenderer)
-    {
+    public void addSprite(SpriteRenderer spriteRenderer) {
 
         // Get index and add render Object
         int index = this.nSprites;
@@ -94,22 +94,19 @@ public class BatchRenderer
         this.nSprites++;
 
         // Add texture to global list of textures if not present
-        if(spriteRenderer.getTexture() != null && !textures.contains(spriteRenderer.getTexture()))
-        {
+        if (spriteRenderer.getTexture() != null && !textures.contains(spriteRenderer.getTexture())) {
             textures.add(spriteRenderer.getTexture());
         }
 
         // Add properties to local vertices array
         loadVertexProperties(index);
 
-        if (nSprites >= this.maxBatchSize)
-        {
+        if (nSprites >= this.maxBatchSize) {
             this.hasRoom = false;
         }
     }
 
-    private void loadVertexProperties(int index)
-    {
+    private void loadVertexProperties(int index) {
         SpriteRenderer spriteRenderer = this.sprites[index];
 
         // Find the offest within array (4 vertices per array)
@@ -119,12 +116,9 @@ public class BatchRenderer
         Vector2f[] textureCoordinates = spriteRenderer.getTextureCoordinates();
 
         int textureID = 0;
-        if(spriteRenderer.getTexture() != null)
-        {
-            for(int i = 0; i < textures.size(); i++)
-            {
-                if(textures.get(i).equals(spriteRenderer.getTexture()))
-                {
+        if (spriteRenderer.getTexture() != null) {
+            for (int i = 0; i < textures.size(); i++) {
+                if (textures.get(i).equals(spriteRenderer.getTexture())) {
                     textureID = i + 1;
                     break;
                 }
@@ -134,18 +128,12 @@ public class BatchRenderer
         // Add vertices with the appropriate properties
         float xAdd = 0.5f;
         float yAdd = 0.5f;
-        for(int i = 0; i < 4; i++)
-        {
-            if(i == 1)
-            {
+        for (int i = 0; i < 4; i++) {
+            if (i == 1) {
                 yAdd = -0.5f;
-            }
-            else if(i == 2)
-            {
+            } else if (i == 2) {
                 xAdd = -0.5f;
-            }
-            else if(i == 3)
-            {
+            } else if (i == 3) {
                 yAdd = 0.5f;
             }
 
@@ -170,21 +158,17 @@ public class BatchRenderer
         }
     }
 
-    public void render()
-    {
+    public void render() {
         boolean rebufferData = false;
-        for(int i = 0; i < nSprites; i++)
-        {
+        for (int i = 0; i < nSprites; i++) {
             SpriteRenderer spriteRenderer = sprites[i];
-            if(spriteRenderer.isDirty())
-            {
+            if (spriteRenderer.isDirty()) {
                 loadVertexProperties(i);
                 spriteRenderer.setClean();
                 rebufferData = true;
             }
         }
-        if(rebufferData)
-        {
+        if (rebufferData) {
             // Will rebuffer data if any sprites are dirty
             glBindBuffer(GL_ARRAY_BUFFER, vboID);
             glBufferSubData(GL_ARRAY_BUFFER, 0, vertices);
@@ -196,8 +180,7 @@ public class BatchRenderer
         shader.uploadMat4f("uProjection", Window.getCurrentScene().getCamera().getProjectionMatrix());
         shader.uploadMat4f("uView", Window.getCurrentScene().getCamera().getViewMatrix());
 
-        for(int i = 0; i < textures.size(); i++)
-        {
+        for (int i = 0; i < textures.size(); i++) {
             glActiveTexture(GL_TEXTURE0 + i + 1);
             textures.get(i).bind();
         }
@@ -214,28 +197,24 @@ public class BatchRenderer
         glDisableVertexAttribArray(1);
         glBindVertexArray(0);
 
-        for(int i = 0; i < textures.size(); i++)
-        {
+        for (int i = 0; i < textures.size(); i++) {
             textures.get(i).unbind();
         }
 
         shader.detach();
     }
 
-    private int[] generateIndices()
-    {
+    private int[] generateIndices() {
         // Six indices per quad, three per triangle
         int[] elements = new int[6 * maxBatchSize];
-        for(int i = 0; i < maxBatchSize; i++)
-        {
+        for (int i = 0; i < maxBatchSize; i++) {
             loadElementIndices(elements, i);
         }
 
         return elements;
     }
 
-    private void loadElementIndices(int[] elements, int index)
-    {
+    private void loadElementIndices(int[] elements, int index) {
         int offsetArrayIndex = 6 * index;
         int offset = 4 * index;
 
@@ -250,18 +229,25 @@ public class BatchRenderer
         elements[offsetArrayIndex + 5] = offset + 1;
     }
 
-    public boolean hasRoom()
-    {
+    @Override
+    public int compareTo(BatchRenderer o) {
+        return Integer.compare(this.zIndex, o.zIndex);
+    }
+
+    public boolean hasRoom() {
         return this.hasRoom;
     }
 
-    public boolean hasTextureRoom()
-    {
+    public boolean hasTextureRoom() {
         return this.textures.size() < 8;
     }
 
-    public boolean hasTexture(Texture texture)
-    {
+    public boolean hasTexture(Texture texture) {
         return this.textures.contains(texture);
+    }
+
+    public int getzIndex()
+    {
+        return zIndex;
     }
 }
