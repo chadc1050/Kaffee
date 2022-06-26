@@ -1,19 +1,17 @@
 package kaffee.engine.components;
 
 import kaffee.engine.Component;
+import kaffee.engine.Transform;
 import kaffee.engine.renderer.Texture;
 import org.joml.Vector2f;
 import org.joml.Vector4f;
 
 public class SpriteRenderer extends Component
 {
-
     private Vector4f color;
-    private Vector2f[] textureCoordinates;
-    private Texture texture;
     private Sprite sprite;
-
-    private boolean firstTime = false;
+    private Transform lastTransform;
+    private boolean isDirty = false;
 
     public SpriteRenderer(Vector4f color)
     {
@@ -30,14 +28,16 @@ public class SpriteRenderer extends Component
     @Override
     public void start()
     {
-
+        this.lastTransform = gameObject.transform.copy();
     }
 
     @Override
-    public void update(float deltaTime) {
-        if(!firstTime)
+    public void update(float deltaTime)
+    {
+        if(!this.lastTransform.equals(this.gameObject.transform))
         {
-            firstTime = true;
+            this.gameObject.transform.copy(this.lastTransform);
+            isDirty = true;
         }
     }
 
@@ -58,6 +58,26 @@ public class SpriteRenderer extends Component
 
     public void setColor(Vector4f color)
     {
-        this.color = color;
+        if(!this.color.equals(color))
+        {
+            this.isDirty = true;
+            this.color.set(color);
+        }
+    }
+
+    public void setSprite(Sprite sprite)
+    {
+        this.sprite = sprite;
+        this.isDirty = true;
+    }
+
+    public boolean isDirty()
+    {
+        return this.isDirty;
+    }
+
+    public void setClean()
+    {
+        this.isDirty = false;
     }
 }

@@ -10,6 +10,7 @@ import org.joml.Vector2f;
 
 public class LevelEditorScene extends Scene
 {
+    private GameObject obj1;
     public LevelEditorScene()
     {
     }
@@ -29,7 +30,7 @@ public class LevelEditorScene extends Scene
         GameObject gameObject3 = new GameObject("Dog3", new Transform(new Vector2f(350, 50), new Vector2f(100, 100)));
         GameObject gameObject4 = new GameObject("Dog4", new Transform(new Vector2f(450, 50), new Vector2f(100, 100)));
         GameObject gameObject5 = new GameObject("Dog5", new Transform(new Vector2f(550, 50), new Vector2f(100, 100)));
-        GameObject gameObject6 = new GameObject("Dog6", new Transform(new Vector2f(650, 50), new Vector2f(100, 100)));
+        this.obj1 = new GameObject("Dog6", new Transform(new Vector2f(650, 50), new Vector2f(100, 100)));
 
         gameObject.addComponent(new SpriteRenderer(sprites.getSprite(28)));
         gameObject1.addComponent(new SpriteRenderer(sprites.getSprite(29)));
@@ -37,9 +38,9 @@ public class LevelEditorScene extends Scene
         gameObject3.addComponent(new SpriteRenderer(sprites.getSprite(31)));
         gameObject4.addComponent(new SpriteRenderer(sprites.getSprite(32)));
         gameObject5.addComponent(new SpriteRenderer(sprites.getSprite(33)));
-        gameObject6.addComponent(new SpriteRenderer(sprites.getSprite(34)));
+        this.obj1.addComponent(new SpriteRenderer(sprites.getSprite(34)));
 
-        this.addGameObjectsToScene(gameObject, gameObject1, gameObject2, gameObject3, gameObject4, gameObject5, gameObject6);
+        this.addGameObjectsToScene(gameObject, gameObject1, gameObject2, gameObject3, gameObject4, gameObject5, this.obj1);
     }
 
     private void loadResources()
@@ -52,6 +53,8 @@ public class LevelEditorScene extends Scene
     @Override
     public void update(float deltaTime)
     {
+        obj1.transform.position.x += 10 * deltaTime;
+
         for(GameObject gameObject: this.gameObjects)
         {
             gameObject.update(deltaTime);
