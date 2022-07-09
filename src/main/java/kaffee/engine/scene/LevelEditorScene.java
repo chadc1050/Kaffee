@@ -29,6 +29,8 @@ public class LevelEditorScene extends Scene
             return;
         }
 
+        sprites = AssetPool.getSpriteSheet("assets/sprites/kaffee/Stardew Valley - Dog Blonde.png");
+
         this.camera = new Camera(new Vector2f(0, 0));
     }
 

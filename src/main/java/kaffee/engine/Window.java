@@ -205,14 +205,14 @@ public class Window
         {
             case 0:
                 currentScene = new LevelEditorScene();
-                currentScene.load();
                 currentScene.initialize();
+                currentScene.load();
                 currentScene.start();
                 break;
             case 1:
                 currentScene = new LevelScene();
-                currentScene.load();
                 currentScene.initialize();
+                currentScene.load();
                 currentScene.start();
                 break;
             default:
