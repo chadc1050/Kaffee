@@ -42,11 +42,10 @@ public class Transform
     @Override
     public boolean equals(Object o)
     {
-        if(o == null || !(o instanceof Transform))
+        if(!(o instanceof Transform transform))
         {
             return false;
         }
-        Transform transform = ((Transform) o);
         return transform.position.equals(this.position) && transform.scale.equals(this.scale);
     }
 }

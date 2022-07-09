@@ -196,6 +196,7 @@ public class Window
 
             beginTime = endTime;
         }
+        currentScene.saveExit();
     }
 
     public static void changeScene(int newScene)
@@ -204,11 +205,13 @@ public class Window
         {
             case 0:
                 currentScene = new LevelEditorScene();
+                currentScene.load();
                 currentScene.initialize();
                 currentScene.start();
                 break;
             case 1:
                 currentScene = new LevelScene();
+                currentScene.load();
                 currentScene.initialize();
                 currentScene.start();
                 break;

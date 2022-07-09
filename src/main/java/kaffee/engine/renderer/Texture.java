@@ -14,7 +14,7 @@ public class Texture
     private String filePath;
     private int width, height;
 
-    public Texture(String filePath)
+    public void initialize(String filePath)
     {
         this.filePath = filePath;
 
@@ -91,5 +91,15 @@ public class Texture
     public String getFilePath()
     {
         return filePath;
+    }
+
+    public int getTextureID()
+    {
+        return textureID;
+    }
+
+    public void setTextureID(int textureID)
+    {
+        this.textureID = textureID;
     }
 }

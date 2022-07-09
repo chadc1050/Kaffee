@@ -41,20 +41,31 @@ public class Shader
 
             String secondPattern = source.substring(index, eol).trim();
 
-            try {
-                if (firstPattern.equals("vertex")) {
+            try
+            {
+                if (firstPattern.equals("vertex"))
+                {
                     vertexSource = stringSplit[1];
-                } else if (firstPattern.equals("fragment")) {
+                }
+                else if (firstPattern.equals("fragment"))
+                {
                     fragmentSource = stringSplit[1];
-                } else {
+                }
+                else
+                {
                     throw new IOException("ERROR: Unexpected token '" + firstPattern + "' in file path: " + filepath);
                 }
 
-                if (secondPattern.equals("vertex")) {
+                if (secondPattern.equals("vertex"))
+                {
                     vertexSource = stringSplit[2];
-                } else if (secondPattern.equals("fragment")) {
+                }
+                else if (secondPattern.equals("fragment"))
+                {
                     fragmentSource = stringSplit[2];
-                } else {
+                }
+                else
+                {
                     throw new IOException("ERROR: Unexpected token '" + secondPattern + "' in file path: " + filepath);
                 }
             }

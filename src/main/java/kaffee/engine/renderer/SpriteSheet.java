@@ -1,6 +1,5 @@
-package kaffee.engine.components;
+package kaffee.engine.renderer;
 
-import kaffee.engine.renderer.Texture;
 import org.joml.Vector2f;
 
 import java.util.ArrayList;
@@ -36,7 +35,11 @@ public class SpriteSheet
                     new Vector2f(leftX, topY)
             };
 
-            Sprite sprite = new Sprite(this.texture, textureCoordinates);
+            Sprite sprite = new Sprite();
+            sprite.setTexture(this.texture);
+            sprite.setTextureCoordinates(textureCoordinates);
+            sprite.setWidth(spriteWidth);
+            sprite.setHeight(spriteHeight);
             this.sprites.add(sprite);
 
             currentX += spriteWidth + spacing;
@@ -51,5 +54,10 @@ public class SpriteSheet
     public Sprite getSprite(int index)
     {
         return this.sprites.get(index);
+    }
+
+    public int size()
+    {
+        return sprites.size();
     }
 }

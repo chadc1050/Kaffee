@@ -128,12 +128,18 @@ public class BatchRenderer implements Comparable<BatchRenderer>
         // Add vertices with the appropriate properties
         float xAdd = 0.5f;
         float yAdd = 0.5f;
-        for (int i = 0; i < 4; i++) {
-            if (i == 1) {
+        for (int i = 0; i < 4; i++)
+        {
+            if (i == 1)
+            {
                 yAdd = -0.5f;
-            } else if (i == 2) {
+            }
+            else if (i == 2)
+            {
                 xAdd = -0.5f;
-            } else if (i == 3) {
+            }
+            else if (i == 3)
+            {
                 yAdd = 0.5f;
             }
 
@@ -160,15 +166,18 @@ public class BatchRenderer implements Comparable<BatchRenderer>
 
     public void render() {
         boolean rebufferData = false;
-        for (int i = 0; i < nSprites; i++) {
+        for (int i = 0; i < nSprites; i++)
+        {
             SpriteRenderer spriteRenderer = sprites[i];
-            if (spriteRenderer.isDirty()) {
+            if (spriteRenderer.isDirty())
+            {
                 loadVertexProperties(i);
                 spriteRenderer.setClean();
                 rebufferData = true;
             }
         }
-        if (rebufferData) {
+        if (rebufferData)
+        {
             // Will rebuffer data if any sprites are dirty
             glBindBuffer(GL_ARRAY_BUFFER, vboID);
             glBufferSubData(GL_ARRAY_BUFFER, 0, vertices);

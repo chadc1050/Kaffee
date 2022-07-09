@@ -1,12 +1,12 @@
 package kaffee.engine.util;
 
-import kaffee.engine.components.SpriteSheet;
 import kaffee.engine.renderer.Shader;
+import kaffee.engine.renderer.SpriteSheet;
 import kaffee.engine.renderer.Texture;
 
 import java.io.File;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Used for interfacing with the assets package, loads in and stores assets for fast and easy access.
@@ -41,6 +41,14 @@ public class AssetPool
         }
     }
 
+    public static List<Shader> getAllShaders(String directory)
+    {
+        return Arrays.stream(new File(directory).listFiles())
+                .filter(file -> file != null && file.getName().endsWith(".glsl"))
+                .map(file -> getShader(file.getAbsolutePath()))
+                .collect(Collectors.toList());
+    }
+
     public static Texture getTexture(String resourceName)
     {
         File file = new File(resourceName);
@@ -50,10 +58,19 @@ public class AssetPool
         }
         else
         {
-            Texture texture = new Texture(resourceName);
+            Texture texture = new Texture();
+            texture.initialize(resourceName);
             AssetPool.textures.put(file.getAbsolutePath(), texture);
             return texture;
         }
+    }
+
+    public static List<Texture> getAllTextures(String directory)
+    {
+        return Arrays.stream(new File(directory).listFiles())
+                .filter(Objects::nonNull)
+                .map(file -> getTexture(file.getAbsolutePath()))
+                .collect(Collectors.toList());
     }
 
     public static void addSpriteSheet(String resourceName, SpriteSheet spriteSheet)

@@ -1,5 +1,7 @@
 package kaffee.engine;
 
+import kaffee.engine.components.Component;
+
 import java.util.ArrayList;
 import java.util.List;
 
