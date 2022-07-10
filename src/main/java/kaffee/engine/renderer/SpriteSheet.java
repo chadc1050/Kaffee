@@ -10,6 +10,19 @@ public class SpriteSheet
     private Texture texture;
     private List<Sprite> sprites;
 
+    /**
+     * Constructor for Sprite Sheet, only allows for uniformly sized sprites.
+     * @param texture
+     *      The texture that comprises the sheet.
+     * @param spriteWidth
+     *      Width of each sprite.
+     * @param spriteHeight
+     *      Height of each sprite.
+     * @param nSprites
+     *      Number of sprites contained in the sheet
+     * @param spacing
+     *      Uniform spacing between the sprites.
+     */
     public SpriteSheet(Texture texture, int spriteWidth, int spriteHeight, int nSprites, int spacing)
     {
         this.sprites = new ArrayList<>();
@@ -21,7 +34,7 @@ public class SpriteSheet
         // Start at bottom of the top sprite
         int currentY = texture.getHeight() - spriteHeight;
 
-        for(int i = 0; i < nSprites; i++)
+        for(int s = 0; s < nSprites; s++)
         {
             float topY = (currentY + spriteHeight) / (float) texture.getHeight();
             float rightX = (currentX + spriteWidth) / (float) texture.getWidth();

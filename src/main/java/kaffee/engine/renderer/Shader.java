@@ -27,53 +27,7 @@ public class Shader
         this.filePath = filepath;
         try
         {
-            String source = new String(Files.readAllBytes(Paths.get(filepath)));
-            String[] stringSplit = source.split("(#type)( )+([a-zA-Z)]+)");
-
-            // Get the index of the type attribute
-            int index = source.indexOf("#type") + 6;
-            int eol = source.indexOf("\r\n", index);
-
-            String firstPattern = source.substring(index, eol).trim();
-
-            index = source.indexOf("#type", eol) + 6;
-            eol = source.indexOf("\r\n", index);
-
-            String secondPattern = source.substring(index, eol).trim();
-
-            try
-            {
-                if (firstPattern.equals("vertex"))
-                {
-                    vertexSource = stringSplit[1];
-                }
-                else if (firstPattern.equals("fragment"))
-                {
-                    fragmentSource = stringSplit[1];
-                }
-                else
-                {
-                    throw new IOException("ERROR: Unexpected token '" + firstPattern + "' in file path: " + filepath);
-                }
-
-                if (secondPattern.equals("vertex"))
-                {
-                    vertexSource = stringSplit[2];
-                }
-                else if (secondPattern.equals("fragment"))
-                {
-                    fragmentSource = stringSplit[2];
-                }
-                else
-                {
-                    throw new IOException("ERROR: Unexpected token '" + secondPattern + "' in file path: " + filepath);
-                }
-            }
-            catch (IOException e)
-            {
-                e.printStackTrace();
-                assert false : e.getMessage();
-            }
+            parseShaderFile(filePath);
         }
         catch (IOException e)
         {
@@ -262,5 +216,56 @@ public class Shader
     {
         glUseProgram(0);
         beingUsed = false;
+    }
+
+    private void parseShaderFile(String filePath) throws IOException
+    {
+        String source = new String(Files.readAllBytes(Paths.get(filePath)));
+        String[] stringSplit = source.split("(#type)( )+([a-zA-Z)]+)");
+
+        // Get the index of the type attribute
+        int index = source.indexOf("#type") + 6;
+        int eol = source.indexOf("\r\n", index);
+
+        String firstPattern = source.substring(index, eol).trim();
+
+        index = source.indexOf("#type", eol) + 6;
+        eol = source.indexOf("\r\n", index);
+
+        String secondPattern = source.substring(index, eol).trim();
+
+        try
+        {
+            if (firstPattern.equals("vertex"))
+            {
+                vertexSource = stringSplit[1];
+            }
+            else if (firstPattern.equals("fragment"))
+            {
+                fragmentSource = stringSplit[1];
+            }
+            else
+            {
+                throw new IOException("ERROR: Unexpected token '" + firstPattern + "' in file path: " + filePath);
+            }
+
+            if (secondPattern.equals("vertex"))
+            {
+                vertexSource = stringSplit[2];
+            }
+            else if (secondPattern.equals("fragment"))
+            {
+                fragmentSource = stringSplit[2];
+            }
+            else
+            {
+                throw new IOException("ERROR: Unexpected token '" + secondPattern + "' in file path: " + filePath);
+            }
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+            assert false : e.getMessage();
+        }
     }
 }

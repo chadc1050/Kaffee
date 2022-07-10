@@ -1,5 +1,8 @@
 package kaffee.engine.listener;
 
+import kaffee.engine.Window;
+import org.joml.Vector4f;
+
 import java.util.Objects;
 
 import static org.lwjgl.glfw.GLFW.GLFW_PRESS;
@@ -47,7 +50,7 @@ public class MouseListener
 
     public static void mouseButtonCallback(long window, int button, int action, int modifier)
     {
-        if(button < get().mouseButtonPressed.length)
+        if(isValidMouseButton(button))
         {
             if(action == GLFW_PRESS)
             {
@@ -87,6 +90,34 @@ public class MouseListener
         return false;
     }
 
+    public static boolean isMouseButtonPressed(int button)
+    {
+        return isValidMouseButton(button) && get().mouseButtonPressed[button];
+    }
+
+    public static boolean isValidMouseButton(int button)
+    {
+        return button < get().mouseButtonPressed.length;
+    }
+
+    public static float getOrthogonalX()
+    {
+        float currentX = (getXPos()/ (float) Window.getWidth()) * 2.0f - 1.0f;
+        return new Vector4f(currentX, 0, 0, 1)
+                .mul(Window.getCurrentScene().getCamera().getInverseProjection())
+                .mul(Window.getCurrentScene().getCamera().getInverseView())
+                .x;
+    }
+
+    public static float getOrthogonalY()
+    {
+        float currentY = (Window.getHeight() - getYPos() / (float) Window.getHeight()) * 2.0f - 1.0f;
+        return new Vector4f(0, currentY, 0, 1)
+                .mul(Window.getCurrentScene().getCamera().getInverseProjection())
+                .mul(Window.getCurrentScene().getCamera().getInverseView())
+                .y;
+    }
+
     public static float getXPos()
     {
         return ((float) get().xPos);
@@ -120,14 +151,5 @@ public class MouseListener
     public static boolean isDragging()
     {
         return get().isDragging;
-    }
-
-    public static boolean isMouseButtonPressed(int button)
-    {
-        if(button < get().mouseButtonPressed.length)
-        {
-            return get().mouseButtonPressed[button];
-        }
-        return false;
     }
 }

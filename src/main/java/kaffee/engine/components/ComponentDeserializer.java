@@ -1,7 +1,6 @@
-package kaffee.engine.util;
+package kaffee.engine.components;
 
 import com.google.gson.*;
-import kaffee.engine.components.Component;
 
 import java.lang.reflect.Type;
 

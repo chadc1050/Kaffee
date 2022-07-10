@@ -7,7 +7,7 @@ import kaffee.engine.Camera;
 import kaffee.engine.GameObject;
 import kaffee.engine.components.Component;
 import kaffee.engine.renderer.Renderer;
-import kaffee.engine.util.ComponentDeserializer;
+import kaffee.engine.components.ComponentDeserializer;
 import kaffee.engine.util.GameObjectDeserializer;
 import org.codehaus.plexus.util.StringUtils;
 
@@ -44,20 +44,7 @@ public abstract class Scene
 
     public void initialize() {}
 
-    public void addGameObjectToScene(GameObject gameObject)
-    {
-        if(!isRunning)
-        {
-            gameObjects.add(gameObject);
-        }
-        else {
-            gameObjects.add(gameObject);
-            gameObject.start();
-            this.renderer.add(gameObject);
-        }
-    }
-
-    public void addGameObjectsToScene(GameObject... gameObjectsToAdd)
+    public void addGameObjectsToCurrentScene(GameObject... gameObjectsToAdd)
     {
         for (GameObject gameObject : gameObjectsToAdd)
         {
@@ -65,7 +52,8 @@ public abstract class Scene
             {
                 gameObjects.add(gameObject);
             }
-            else {
+            else
+            {
                 gameObjects.add(gameObject);
                 gameObject.start();
                 this.renderer.add(gameObject);
@@ -136,7 +124,7 @@ public abstract class Scene
             GameObject[] gameObjects = gson.fromJson(inFile, GameObject[].class);
             for(GameObject gameObject : gameObjects)
             {
-                addGameObjectToScene(gameObject);
+                addGameObjectsToCurrentScene(gameObject);
             }
         }
 

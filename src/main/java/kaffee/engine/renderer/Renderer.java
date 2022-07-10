@@ -55,10 +55,7 @@ public class Renderer
 
     public void render()
     {
-        for(BatchRenderer batchRenderer : batchRenderers)
-        {
-            batchRenderer.render();
-        }
+        batchRenderers.forEach(BatchRenderer::render);
     }
 
 }

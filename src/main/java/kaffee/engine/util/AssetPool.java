@@ -32,18 +32,17 @@ public class AssetPool
         {
             return AssetPool.shaders.get(file.getAbsolutePath());
         }
-        else
-        {
-            Shader shader = new Shader(resourceName);
-            shader.compile();
-            AssetPool.shaders.put(file.getAbsolutePath(), shader);
-            return shader;
-        }
+
+        Shader shader = new Shader(resourceName);
+        shader.compile();
+        AssetPool.shaders.put(file.getAbsolutePath(), shader);
+        return shader;
+
     }
 
     public static List<Shader> getAllShaders(String directory)
     {
-        return Arrays.stream(new File(directory).listFiles())
+        return Arrays.stream(Objects.requireNonNull(new File(directory).listFiles()))
                 .filter(file -> file != null && file.getName().endsWith(".glsl"))
                 .map(file -> getShader(file.getAbsolutePath()))
                 .collect(Collectors.toList());
@@ -56,18 +55,16 @@ public class AssetPool
         {
             return AssetPool.textures.get(file.getAbsolutePath());
         }
-        else
-        {
-            Texture texture = new Texture();
-            texture.initialize(resourceName);
-            AssetPool.textures.put(file.getAbsolutePath(), texture);
-            return texture;
-        }
+
+        Texture texture = new Texture();
+        texture.initialize(resourceName);
+        AssetPool.textures.put(file.getAbsolutePath(), texture);
+        return texture;
     }
 
     public static List<Texture> getAllTextures(String directory)
     {
-        return Arrays.stream(new File(directory).listFiles())
+        return Arrays.stream(Objects.requireNonNull(new File(directory).listFiles()))
                 .filter(Objects::nonNull)
                 .map(file -> getTexture(file.getAbsolutePath()))
                 .collect(Collectors.toList());
@@ -89,6 +86,7 @@ public class AssetPool
         {
             throw new IllegalArgumentException("ERROR: Could not find sprite sheet with resource name: " + resourceName);
         }
+
         return AssetPool.spriteSheets.getOrDefault(file.getAbsolutePath(), null);
     }
 }

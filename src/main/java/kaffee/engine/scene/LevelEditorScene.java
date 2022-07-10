@@ -4,6 +4,8 @@ import imgui.ImGui;
 import imgui.ImVec2;
 import kaffee.engine.Camera;
 import kaffee.engine.GameObject;
+import kaffee.engine.components.GameObjectGenerator;
+import kaffee.engine.components.VirtualComponent;
 import kaffee.engine.renderer.Sprite;
 import kaffee.engine.renderer.SpriteSheet;
 import kaffee.engine.util.AssetPool;
@@ -11,18 +13,19 @@ import org.joml.Vector2f;
 
 public class LevelEditorScene extends Scene
 {
-    private GameObject levelEditor;
-
+    private VirtualComponent virtualComponent = new VirtualComponent();
     private SpriteSheet sprites;
 
     public LevelEditorScene()
     {
+
     }
 
     @Override
     public void initialize()
     {
         loadResources();
+        this.camera = new Camera(new Vector2f(0, 0));
 
         if(loadedLevel)
         {
@@ -30,24 +33,18 @@ public class LevelEditorScene extends Scene
         }
 
         sprites = AssetPool.getSpriteSheet("assets/sprites/kaffee/Stardew Valley - Dog Blonde.png");
-
-        this.camera = new Camera(new Vector2f(0, 0));
-    }
-
-    private void loadResources()
-    {
-        AssetPool.getAllShaders("assets/shaders");
-        AssetPool.addSpriteSheet("assets/sprites/kaffee/Stardew Valley - Dog Blonde.png",
-                new SpriteSheet(AssetPool.getTexture("assets/sprites/kaffee/Stardew Valley - Dog Blonde.png"),32, 32, 36, 0));
     }
 
     @Override
     public void update(float deltaTime)
     {
+        virtualComponent.update(deltaTime);
+
         for(GameObject gameObject: this.gameObjects)
         {
             gameObject.update(deltaTime);
         }
+
         this.renderer.render();
     }
 
@@ -68,10 +65,12 @@ public class LevelEditorScene extends Scene
             int id = sprite.getTextureId();
             Vector2f[] textureCoordinates = sprite.getTextureCoordinates();
 
+            ImGui.pushID(i);
             if(ImGui.imageButton(id, spriteWidth, spriteHeight, textureCoordinates[0].x, textureCoordinates[0].y, textureCoordinates[2].x, textureCoordinates[2].y))
             {
-                System.out.println("Button " + i + " clicked.");
+                virtualComponent.referenceGameObject(GameObjectGenerator.generateSprite(sprite, spriteWidth, spriteHeight));
             }
+            ImGui.popID();
 
             ImVec2 lastButtonPos = new ImVec2();
             ImGui.getItemRectMax(lastButtonPos);
@@ -85,5 +84,12 @@ public class LevelEditorScene extends Scene
         }
 
         ImGui.end();
+    }
+
+    private void loadResources()
+    {
+        AssetPool.getAllShaders("assets/shaders");
+        AssetPool.addSpriteSheet("assets/sprites/kaffee/Stardew Valley - Dog Blonde.png",
+                new SpriteSheet(AssetPool.getTexture("assets/sprites/kaffee/Stardew Valley - Dog Blonde.png"),32, 32, 36, 0));
     }
 }

@@ -1,10 +1,14 @@
 package kaffee.engine;
 
 import kaffee.engine.components.Component;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Getter
+@Setter
 public class GameObject
 {
     private String name;
@@ -30,18 +34,12 @@ public class GameObject
 
     public void start()
     {
-        for(int i = 0; i < components.size(); i++)
-        {
-            components.get(i).start();
-        }
+        components.forEach(Component::start);
     }
 
     public void update(float deltaTime)
     {
-        for(int i = 0; i < components.size(); i++)
-        {
-            components.get(i).update(deltaTime);
-        }
+        components.forEach(component -> component.update(deltaTime));
     }
 
     public <T extends Component> T getComponent(Class<T> componentClass)
@@ -64,9 +62,8 @@ public class GameObject
 
     public <T extends Component> void removeComponent(Class<T> componentClass)
     {
-        for(int i = 0; i < components.size(); i++)
+        for(Component component : components)
         {
-            Component component = components.get(i);
             if(componentClass.isAssignableFrom(component.getClass()))
             {
                 components.remove(component);
@@ -77,14 +74,6 @@ public class GameObject
 
     public void imGUI()
     {
-        for(Component component : components)
-        {
-            component.imGUI();
-        }
-    }
-
-    public int getZIndex()
-    {
-        return zIndex;
+        components.forEach(Component::imGUI);
     }
 }

@@ -1,0 +1,794 @@
+[
+  {
+    "name": "Generated_Game_Object_2.5804398",
+    "components": [
+      {
+        "type": "kaffee.engine.components.SpriteRenderer",
+        "properties": {
+          "color": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0,
+            "w": 1.0
+          },
+          "sprite": {
+            "width": 32.0,
+            "height": 32.0,
+            "texture": {
+              "textureID": 2,
+              "filePath": "assets/sprites/kaffee/Stardew Valley - Dog Blonde.png",
+              "width": 128,
+              "height": 288
+            },
+            "textureCoordinates": [
+              {
+                "x": 0.5,
+                "y": 0.44444445
+              },
+              {
+                "x": 0.5,
+                "y": 0.33333334
+              },
+              {
+                "x": 0.25,
+                "y": 0.33333334
+              },
+              {
+                "x": 0.25,
+                "y": 0.44444445
+              }
+            ]
+          },
+          "lastTransform": {
+            "position": {
+              "x": 72.0,
+              "y": 323.73337
+            },
+            "scale": {
+              "x": 128.0,
+              "y": 128.0
+            }
+          },
+          "isDirty": false
+        }
+      }
+    ],
+    "transform": {
+      "position": {
+        "x": 72.0,
+        "y": 323.73337
+      },
+      "scale": {
+        "x": 128.0,
+        "y": 128.0
+      }
+    },
+    "zIndex": 0
+  },
+  {
+    "name": "Generated_Game_Object_7.0079074",
+    "components": [
+      {
+        "type": "kaffee.engine.components.SpriteRenderer",
+        "properties": {
+          "color": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0,
+            "w": 1.0
+          },
+          "sprite": {
+            "width": 32.0,
+            "height": 32.0,
+            "texture": {
+              "textureID": 2,
+              "filePath": "assets/sprites/kaffee/Stardew Valley - Dog Blonde.png",
+              "width": 128,
+              "height": 288
+            },
+            "textureCoordinates": [
+              {
+                "x": 0.5,
+                "y": 0.6666667
+              },
+              {
+                "x": 0.5,
+                "y": 0.5555556
+              },
+              {
+                "x": 0.25,
+                "y": 0.5555556
+              },
+              {
+                "x": 0.25,
+                "y": 0.6666667
+              }
+            ]
+          },
+          "lastTransform": {
+            "position": {
+              "x": 135.33331,
+              "y": 458.13336
+            },
+            "scale": {
+              "x": 128.0,
+              "y": 128.0
+            }
+          },
+          "isDirty": false
+        }
+      }
+    ],
+    "transform": {
+      "position": {
+        "x": 135.33331,
+        "y": 458.13336
+      },
+      "scale": {
+        "x": 128.0,
+        "y": 128.0
+      }
+    },
+    "zIndex": 0
+  },
+  {
+    "name": "Generated_Game_Object_3.1921785",
+    "components": [
+      {
+        "type": "kaffee.engine.components.SpriteRenderer",
+        "properties": {
+          "color": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0,
+            "w": 1.0
+          },
+          "sprite": {
+            "width": 32.0,
+            "height": 32.0,
+            "texture": {
+              "textureID": 2,
+              "filePath": "assets/sprites/kaffee/Stardew Valley - Dog Blonde.png",
+              "width": 128,
+              "height": 288
+            },
+            "textureCoordinates": [
+              {
+                "x": 1.0,
+                "y": 0.7777778
+              },
+              {
+                "x": 1.0,
+                "y": 0.6666667
+              },
+              {
+                "x": 0.75,
+                "y": 0.6666667
+              },
+              {
+                "x": 0.75,
+                "y": 0.7777778
+              }
+            ]
+          },
+          "lastTransform": {
+            "position": {
+              "x": 212.0,
+              "y": 347.3778
+            },
+            "scale": {
+              "x": 128.0,
+              "y": 128.0
+            }
+          },
+          "isDirty": false
+        }
+      }
+    ],
+    "transform": {
+      "position": {
+        "x": 212.0,
+        "y": 347.3778
+      },
+      "scale": {
+        "x": 128.0,
+        "y": 128.0
+      }
+    },
+    "zIndex": 0
+  },
+  {
+    "name": "Generated_Game_Object_3.1023245",
+    "components": [
+      {
+        "type": "kaffee.engine.components.SpriteRenderer",
+        "properties": {
+          "color": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0,
+            "w": 1.0
+          },
+          "sprite": {
+            "width": 32.0,
+            "height": 32.0,
+            "texture": {
+              "textureID": 2,
+              "filePath": "assets/sprites/kaffee/Stardew Valley - Dog Blonde.png",
+              "width": 128,
+              "height": 288
+            },
+            "textureCoordinates": [
+              {
+                "x": 0.25,
+                "y": 0.44444445
+              },
+              {
+                "x": 0.25,
+                "y": 0.33333334
+              },
+              {
+                "x": 0.0,
+                "y": 0.33333334
+              },
+              {
+                "x": 0.0,
+                "y": 0.44444445
+              }
+            ]
+          },
+          "lastTransform": {
+            "position": {
+              "x": 212.0,
+              "y": 239.11115
+            },
+            "scale": {
+              "x": 128.0,
+              "y": 128.0
+            }
+          },
+          "isDirty": false
+        }
+      }
+    ],
+    "transform": {
+      "position": {
+        "x": 212.0,
+        "y": 239.11115
+      },
+      "scale": {
+        "x": 128.0,
+        "y": 128.0
+      }
+    },
+    "zIndex": 0
+  },
+  {
+    "name": "Generated_Game_Object_919.0935",
+    "components": [
+      {
+        "type": "kaffee.engine.components.SpriteRenderer",
+        "properties": {
+          "color": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0,
+            "w": 1.0
+          },
+          "sprite": {
+            "width": 32.0,
+            "height": 32.0,
+            "texture": {
+              "textureID": 2,
+              "filePath": "assets/sprites/kaffee/Stardew Valley - Dog Blonde.png",
+              "width": 128,
+              "height": 288
+            },
+            "textureCoordinates": [
+              {
+                "x": 0.5,
+                "y": 0.6666667
+              },
+              {
+                "x": 0.5,
+                "y": 0.5555556
+              },
+              {
+                "x": 0.25,
+                "y": 0.5555556
+              },
+              {
+                "x": 0.25,
+                "y": 0.6666667
+              }
+            ]
+          },
+          "lastTransform": {
+            "position": {
+              "x": 814.6666,
+              "y": 553.9556
+            },
+            "scale": {
+              "x": 128.0,
+              "y": 128.0
+            }
+          },
+          "isDirty": false
+        }
+      }
+    ],
+    "transform": {
+      "position": {
+        "x": 814.6666,
+        "y": 553.9556
+      },
+      "scale": {
+        "x": 128.0,
+        "y": 128.0
+      }
+    },
+    "zIndex": 0
+  },
+  {
+    "name": "Generated_Game_Object_921.2274",
+    "components": [
+      {
+        "type": "kaffee.engine.components.SpriteRenderer",
+        "properties": {
+          "color": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0,
+            "w": 1.0
+          },
+          "sprite": {
+            "width": 32.0,
+            "height": 32.0,
+            "texture": {
+              "textureID": 2,
+              "filePath": "assets/sprites/kaffee/Stardew Valley - Dog Blonde.png",
+              "width": 128,
+              "height": 288
+            },
+            "textureCoordinates": [
+              {
+                "x": 0.25,
+                "y": 0.8888889
+              },
+              {
+                "x": 0.25,
+                "y": 0.7777778
+              },
+              {
+                "x": 0.0,
+                "y": 0.7777778
+              },
+              {
+                "x": 0.0,
+                "y": 0.8888889
+              }
+            ]
+          },
+          "lastTransform": {
+            "position": {
+              "x": 958.6667,
+              "y": 564.5334
+            },
+            "scale": {
+              "x": 128.0,
+              "y": 128.0
+            }
+          },
+          "isDirty": false
+        }
+      }
+    ],
+    "transform": {
+      "position": {
+        "x": 958.6667,
+        "y": 564.5334
+      },
+      "scale": {
+        "x": 128.0,
+        "y": 128.0
+      }
+    },
+    "zIndex": 0
+  },
+  {
+    "name": "Generated_Game_Object_922.9605",
+    "components": [
+      {
+        "type": "kaffee.engine.components.SpriteRenderer",
+        "properties": {
+          "color": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0,
+            "w": 1.0
+          },
+          "sprite": {
+            "width": 32.0,
+            "height": 32.0,
+            "texture": {
+              "textureID": 2,
+              "filePath": "assets/sprites/kaffee/Stardew Valley - Dog Blonde.png",
+              "width": 128,
+              "height": 288
+            },
+            "textureCoordinates": [
+              {
+                "x": 0.5,
+                "y": 0.8888889
+              },
+              {
+                "x": 0.5,
+                "y": 0.7777778
+              },
+              {
+                "x": 0.25,
+                "y": 0.7777778
+              },
+              {
+                "x": 0.25,
+                "y": 0.8888889
+              }
+            ]
+          },
+          "lastTransform": {
+            "position": {
+              "x": 870.6666,
+              "y": 639.2001
+            },
+            "scale": {
+              "x": 128.0,
+              "y": 128.0
+            }
+          },
+          "isDirty": false
+        }
+      }
+    ],
+    "transform": {
+      "position": {
+        "x": 870.6666,
+        "y": 639.2001
+      },
+      "scale": {
+        "x": 128.0,
+        "y": 128.0
+      }
+    },
+    "zIndex": 0
+  },
+  {
+    "name": "Generated_Game_Object_925.2425",
+    "components": [
+      {
+        "type": "kaffee.engine.components.SpriteRenderer",
+        "properties": {
+          "color": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0,
+            "w": 1.0
+          },
+          "sprite": {
+            "width": 32.0,
+            "height": 32.0,
+            "texture": {
+              "textureID": 2,
+              "filePath": "assets/sprites/kaffee/Stardew Valley - Dog Blonde.png",
+              "width": 128,
+              "height": 288
+            },
+            "textureCoordinates": [
+              {
+                "x": 0.5,
+                "y": 0.5555556
+              },
+              {
+                "x": 0.5,
+                "y": 0.44444445
+              },
+              {
+                "x": 0.25,
+                "y": 0.44444445
+              },
+              {
+                "x": 0.25,
+                "y": 0.5555556
+              }
+            ]
+          },
+          "lastTransform": {
+            "position": {
+              "x": 732.6667,
+              "y": 633.60004
+            },
+            "scale": {
+              "x": 128.0,
+              "y": 128.0
+            }
+          },
+          "isDirty": false
+        }
+      }
+    ],
+    "transform": {
+      "position": {
+        "x": 732.6667,
+        "y": 633.60004
+      },
+      "scale": {
+        "x": 128.0,
+        "y": 128.0
+      }
+    },
+    "zIndex": 0
+  },
+  {
+    "name": "Generated_Game_Object_927.9259",
+    "components": [
+      {
+        "type": "kaffee.engine.components.SpriteRenderer",
+        "properties": {
+          "color": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0,
+            "w": 1.0
+          },
+          "sprite": {
+            "width": 32.0,
+            "height": 32.0,
+            "texture": {
+              "textureID": 2,
+              "filePath": "assets/sprites/kaffee/Stardew Valley - Dog Blonde.png",
+              "width": 128,
+              "height": 288
+            },
+            "textureCoordinates": [
+              {
+                "x": 0.25,
+                "y": 0.22222222
+              },
+              {
+                "x": 0.25,
+                "y": 0.11111111
+              },
+              {
+                "x": 0.0,
+                "y": 0.11111111
+              },
+              {
+                "x": 0.0,
+                "y": 0.22222222
+              }
+            ]
+          },
+          "lastTransform": {
+            "position": {
+              "x": 727.3334,
+              "y": 500.44446
+            },
+            "scale": {
+              "x": 128.0,
+              "y": 128.0
+            }
+          },
+          "isDirty": false
+        }
+      }
+    ],
+    "transform": {
+      "position": {
+        "x": 727.3334,
+        "y": 500.44446
+      },
+      "scale": {
+        "x": 128.0,
+        "y": 128.0
+      }
+    },
+    "zIndex": 0
+  },
+  {
+    "name": "Generated_Game_Object_929.62634",
+    "components": [
+      {
+        "type": "kaffee.engine.components.SpriteRenderer",
+        "properties": {
+          "color": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0,
+            "w": 1.0
+          },
+          "sprite": {
+            "width": 32.0,
+            "height": 32.0,
+            "texture": {
+              "textureID": 2,
+              "filePath": "assets/sprites/kaffee/Stardew Valley - Dog Blonde.png",
+              "width": 128,
+              "height": 288
+            },
+            "textureCoordinates": [
+              {
+                "x": 0.5,
+                "y": 0.8888889
+              },
+              {
+                "x": 0.5,
+                "y": 0.7777778
+              },
+              {
+                "x": 0.25,
+                "y": 0.7777778
+              },
+              {
+                "x": 0.25,
+                "y": 0.8888889
+              }
+            ]
+          },
+          "lastTransform": {
+            "position": {
+              "x": 1050.0,
+              "y": 563.28894
+            },
+            "scale": {
+              "x": 128.0,
+              "y": 128.0
+            }
+          },
+          "isDirty": false
+        }
+      }
+    ],
+    "transform": {
+      "position": {
+        "x": 1050.0,
+        "y": 563.28894
+      },
+      "scale": {
+        "x": 128.0,
+        "y": 128.0
+      }
+    },
+    "zIndex": 0
+  },
+  {
+    "name": "Generated_Game_Object_930.8095",
+    "components": [
+      {
+        "type": "kaffee.engine.components.SpriteRenderer",
+        "properties": {
+          "color": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0,
+            "w": 1.0
+          },
+          "sprite": {
+            "width": 32.0,
+            "height": 32.0,
+            "texture": {
+              "textureID": 2,
+              "filePath": "assets/sprites/kaffee/Stardew Valley - Dog Blonde.png",
+              "width": 128,
+              "height": 288
+            },
+            "textureCoordinates": [
+              {
+                "x": 1.0,
+                "y": 0.8888889
+              },
+              {
+                "x": 1.0,
+                "y": 0.7777778
+              },
+              {
+                "x": 0.75,
+                "y": 0.7777778
+              },
+              {
+                "x": 0.75,
+                "y": 0.8888889
+              }
+            ]
+          },
+          "lastTransform": {
+            "position": {
+              "x": 1024.0,
+              "y": 642.31116
+            },
+            "scale": {
+              "x": 128.0,
+              "y": 128.0
+            }
+          },
+          "isDirty": false
+        }
+      }
+    ],
+    "transform": {
+      "position": {
+        "x": 1024.0,
+        "y": 642.31116
+      },
+      "scale": {
+        "x": 128.0,
+        "y": 128.0
+      }
+    },
+    "zIndex": 0
+  },
+  {
+    "name": "Generated_Game_Object_933.44293",
+    "components": [
+      {
+        "type": "kaffee.engine.components.SpriteRenderer",
+        "properties": {
+          "color": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0,
+            "w": 1.0
+          },
+          "sprite": {
+            "width": 32.0,
+            "height": 32.0,
+            "texture": {
+              "textureID": 2,
+              "filePath": "assets/sprites/kaffee/Stardew Valley - Dog Blonde.png",
+              "width": 128,
+              "height": 288
+            },
+            "textureCoordinates": [
+              {
+                "x": 0.25,
+                "y": 0.8888889
+              },
+              {
+                "x": 0.25,
+                "y": 0.7777778
+              },
+              {
+                "x": 0.0,
+                "y": 0.7777778
+              },
+              {
+                "x": 0.0,
+                "y": 0.8888889
+              }
+            ]
+          },
+          "lastTransform": {
+            "position": {
+              "x": 160.66663,
+              "y": 577.60004
+            },
+            "scale": {
+              "x": 128.0,
+              "y": 128.0
+            }
+          },
+          "isDirty": false
+        }
+      }
+    ],
+    "transform": {
+      "position": {
+        "x": 160.66663,
+        "y": 577.60004
+      },
+      "scale": {
+        "x": 128.0,
+        "y": 128.0
+      }
+    },
+    "zIndex": 0
+  }
+]

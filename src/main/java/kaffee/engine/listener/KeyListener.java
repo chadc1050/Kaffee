@@ -1,17 +1,16 @@
 package kaffee.engine.listener;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+
 import static org.lwjgl.glfw.GLFW.GLFW_PRESS;
 import static org.lwjgl.glfw.GLFW.GLFW_RELEASE;
 
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class KeyListener
 {
     private static KeyListener instance;
     private boolean[] keysPressed = new boolean[350];
-
-    private KeyListener()
-    {
-
-    }
 
     public static KeyListener get()
     {
@@ -36,10 +35,11 @@ public class KeyListener
 
     public static boolean isKeyPressed(int keyCode)
     {
-        if(keyCode < get().keysPressed.length)
-        {
-            return get().keysPressed[keyCode];
-        }
-        return false;
+        return isValidKeyCode(keyCode) && get().keysPressed[keyCode];
+    }
+
+    public static boolean isValidKeyCode(int keyCode)
+    {
+        return keyCode < get().keysPressed.length;
     }
 }

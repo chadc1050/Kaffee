@@ -85,6 +85,8 @@ public class Window
             throw new RuntimeException("ERROR: Missing dependencies in POM file.");
         }
         System.out.println("LWJGL - Version: " + Version.getVersion());
+
+        // Initialize window
         initialize();
 
         // Loop window instance
@@ -136,6 +138,7 @@ public class Window
         glfwSetMouseButtonCallback(glfwWindow, MouseListener::mouseButtonCallback);
         glfwSetScrollCallback(glfwWindow, MouseListener::mouseScrollCallback);
         glfwSetKeyCallback(glfwWindow, KeyListener::keyCallback);
+
         glfwSetWindowSizeCallback(glfwWindow, (w, newWidth, newHeight) -> {
             Window.setWidth(newWidth);
             Window.setHeight(newHeight);
