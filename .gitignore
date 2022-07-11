@@ -38,3 +38,4 @@ build/
 .DS_Store
 /imgui.ini
 /.idea/
+/assets/userDefinedLevel.txt

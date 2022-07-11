@@ -15,6 +15,8 @@ public abstract class Component
 
     public void start() {}
 
+    public void stop() {}
+
     public void imGUI()
     {
         try

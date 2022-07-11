@@ -37,6 +37,11 @@ public class GameObject
         components.forEach(Component::start);
     }
 
+    public void stop()
+    {
+        components.forEach(Component::stop);
+    }
+
     public void update(float deltaTime)
     {
         components.forEach(component -> component.update(deltaTime));
@@ -44,14 +49,11 @@ public class GameObject
 
     public <T extends Component> T getComponent(Class<T> componentClass)
     {
-        for(Component component : components)
-        {
-            if(componentClass.isAssignableFrom(component.getClass()))
-            {
-                return componentClass.cast(component);
-            }
-        }
-        return null;
+        return components.stream()
+                .filter(component -> componentClass.isAssignableFrom(component.getClass()))
+                .findFirst()
+                .map(componentClass::cast)
+                .orElse(null);
     }
 
     public void addComponent(Component component)

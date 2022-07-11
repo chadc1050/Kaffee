@@ -1,17 +1,23 @@
-package kaffee.engine.renderer;
+package kaffee.engine.renderer.sprites;
 
+import kaffee.engine.renderer.Texture;
+import lombok.Getter;
+import lombok.Setter;
 import org.joml.Vector2f;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Getter
+@Setter
 public class SpriteSheet
 {
     private Texture texture;
     private List<Sprite> sprites;
+    private String name;
 
     /**
-     * Constructor for Sprite Sheet, only allows for uniformly sized sprites.
+     * Constructor for Sprite Sheet, only allows for uniformly sized sprites. Parses from left to right.
      * @param texture
      *      The texture that comprises the sheet.
      * @param spriteWidth
@@ -23,10 +29,11 @@ public class SpriteSheet
      * @param spacing
      *      Uniform spacing between the sprites.
      */
-    public SpriteSheet(Texture texture, int spriteWidth, int spriteHeight, int nSprites, int spacing)
+    public SpriteSheet(String name, Texture texture, int spriteWidth, int spriteHeight, int nSprites, int spacing)
     {
         this.sprites = new ArrayList<>();
         this.texture = texture;
+        this.name = name;
 
         // Start on left
         int currentX = 0;
@@ -64,13 +71,19 @@ public class SpriteSheet
         }
     }
 
-    public Sprite getSprite(int index)
+    /**
+     * Used for sprite sheet with non-uniform in size sprites.
+     * @param texture
+     *      Texture for sprite sheet.
+     * @param metadataFilePath
+     *      File path to the metadata to determine sprite coordinates.
+     */
+    public SpriteSheet(Texture texture, String metadataFilePath)
     {
-        return this.sprites.get(index);
-    }
-
-    public int size()
-    {
-        return sprites.size();
+        this.texture = texture;
+        SpriteSheetMetadataProcessor spriteSheetMetadataProcessor = new SpriteSheetMetadataProcessor(metadataFilePath, texture);
+        spriteSheetMetadataProcessor.parse();
+        this.sprites = spriteSheetMetadataProcessor.getSprites();
+        this.name = spriteSheetMetadataProcessor.getName();
     }
 }

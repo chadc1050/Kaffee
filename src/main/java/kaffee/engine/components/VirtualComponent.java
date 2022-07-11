@@ -2,7 +2,7 @@ package kaffee.engine.components;
 
 import kaffee.engine.GameObject;
 import kaffee.engine.Window;
-import kaffee.engine.listener.MouseListener;
+import kaffee.engine.listeners.MouseListener;
 
 import java.util.Optional;
 

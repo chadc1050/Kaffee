@@ -2,7 +2,7 @@ package kaffee.engine.components;
 
 import kaffee.engine.GameObject;
 import kaffee.engine.Transform;
-import kaffee.engine.renderer.Sprite;
+import kaffee.engine.renderer.sprites.Sprite;
 import kaffee.engine.util.Time;
 import org.joml.Vector2f;
 

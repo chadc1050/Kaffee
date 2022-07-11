@@ -1,4 +1,4 @@
-package kaffee.engine.listener;
+package kaffee.engine.listeners;
 
 import kaffee.engine.Window;
 import org.joml.Vector4f;
@@ -102,7 +102,7 @@ public class MouseListener
 
     public static float getOrthogonalX()
     {
-        float currentX = (getXPos()/ (float) Window.getWidth()) * 2.0f - 1.0f;
+        float currentX = (getXPos() / (float) Window.getWidth()) * 2.0f - 1.0f;
         return new Vector4f(currentX, 0, 0, 1)
                 .mul(Window.getCurrentScene().getCamera().getInverseProjection())
                 .mul(Window.getCurrentScene().getCamera().getInverseView())
@@ -111,9 +111,8 @@ public class MouseListener
 
     public static float getOrthogonalY()
     {
-        float currentY = (Window.getHeight() - getYPos() / (float) Window.getHeight()) * 2.0f - 1.0f;
-        return new Vector4f(0, currentY, 0, 1)
-                .mul(Window.getCurrentScene().getCamera().getInverseProjection())
+        float currentY = ((Window.getHeight() - getYPos()) / (float) Window.getHeight()) * 2.0f - 1.0f;
+        return new Vector4f(0, currentY, 0, 1).mul(Window.getCurrentScene().getCamera().getInverseProjection())
                 .mul(Window.getCurrentScene().getCamera().getInverseView())
                 .y;
     }

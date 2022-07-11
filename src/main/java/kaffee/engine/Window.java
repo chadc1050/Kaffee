@@ -1,7 +1,7 @@
 package kaffee.engine;
 
-import kaffee.engine.listener.KeyListener;
-import kaffee.engine.listener.MouseListener;
+import kaffee.engine.listeners.KeyListener;
+import kaffee.engine.listeners.MouseListener;
 import kaffee.engine.scene.LevelEditorScene;
 import kaffee.engine.scene.LevelScene;
 import kaffee.engine.scene.Scene;
@@ -31,6 +31,7 @@ public class Window
     public float alpha = 1.0f;
 
     private int width, height;
+    private float fps;
     private String title;
     private long glfwWindow;
     private static Scene currentScene;
@@ -53,17 +54,12 @@ public class Window
      */
     public static Window get()
     {
-        if(Objects.isNull(Window.window))
-        {
-            Window.window = new Window();
-        }
-        return Window.window;
+        return Window.window = Objects.isNull(Window.window) ? new Window() : Window.window;
     }
 
     public static Scene getCurrentScene()
     {
-        return get().currentScene;
-
+        return currentScene;
     }
 
     public void run()
@@ -195,7 +191,7 @@ public class Window
             endTime = Time.getTime();
 
             dt = endTime - beginTime;
-            //System.out.println("FPS: " + 1.0f / dt);
+            this.fps = 1.0f / dt;
 
             beginTime = endTime;
         }
@@ -251,5 +247,10 @@ public class Window
     public void setTitle(String title)
     {
         this.title = title;
+    }
+
+    public float getFPS()
+    {
+        return this.fps;
     }
 }

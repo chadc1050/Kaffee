@@ -11,66 +11,14 @@ import imgui.flag.ImGuiConfigFlags;
 import imgui.flag.ImGuiKey;
 import imgui.flag.ImGuiMouseCursor;
 import imgui.gl3.ImGuiImplGl3;
-import kaffee.engine.listener.KeyListener;
-import kaffee.engine.listener.MouseListener;
+import imgui.glfw.ImGuiImplGlfw;
+import kaffee.engine.listeners.KeyListener;
+import kaffee.engine.listeners.MouseListener;
 import kaffee.engine.scene.Scene;
 
 import java.util.Objects;
 
-import static org.lwjgl.glfw.GLFW.GLFW_ARROW_CURSOR;
-import static org.lwjgl.glfw.GLFW.GLFW_CURSOR;
-import static org.lwjgl.glfw.GLFW.GLFW_CURSOR_NORMAL;
-import static org.lwjgl.glfw.GLFW.GLFW_HAND_CURSOR;
-import static org.lwjgl.glfw.GLFW.GLFW_HRESIZE_CURSOR;
-import static org.lwjgl.glfw.GLFW.GLFW_IBEAM_CURSOR;
-import static org.lwjgl.glfw.GLFW.GLFW_KEY_A;
-import static org.lwjgl.glfw.GLFW.GLFW_KEY_BACKSPACE;
-import static org.lwjgl.glfw.GLFW.GLFW_KEY_C;
-import static org.lwjgl.glfw.GLFW.GLFW_KEY_DELETE;
-import static org.lwjgl.glfw.GLFW.GLFW_KEY_DOWN;
-import static org.lwjgl.glfw.GLFW.GLFW_KEY_END;
-import static org.lwjgl.glfw.GLFW.GLFW_KEY_ENTER;
-import static org.lwjgl.glfw.GLFW.GLFW_KEY_ESCAPE;
-import static org.lwjgl.glfw.GLFW.GLFW_KEY_HOME;
-import static org.lwjgl.glfw.GLFW.GLFW_KEY_INSERT;
-import static org.lwjgl.glfw.GLFW.GLFW_KEY_KP_ENTER;
-import static org.lwjgl.glfw.GLFW.GLFW_KEY_LEFT;
-import static org.lwjgl.glfw.GLFW.GLFW_KEY_LEFT_ALT;
-import static org.lwjgl.glfw.GLFW.GLFW_KEY_LEFT_CONTROL;
-import static org.lwjgl.glfw.GLFW.GLFW_KEY_LEFT_SHIFT;
-import static org.lwjgl.glfw.GLFW.GLFW_KEY_LEFT_SUPER;
-import static org.lwjgl.glfw.GLFW.GLFW_KEY_PAGE_DOWN;
-import static org.lwjgl.glfw.GLFW.GLFW_KEY_PAGE_UP;
-import static org.lwjgl.glfw.GLFW.GLFW_KEY_RIGHT;
-import static org.lwjgl.glfw.GLFW.GLFW_KEY_RIGHT_ALT;
-import static org.lwjgl.glfw.GLFW.GLFW_KEY_RIGHT_CONTROL;
-import static org.lwjgl.glfw.GLFW.GLFW_KEY_RIGHT_SHIFT;
-import static org.lwjgl.glfw.GLFW.GLFW_KEY_RIGHT_SUPER;
-import static org.lwjgl.glfw.GLFW.GLFW_KEY_SPACE;
-import static org.lwjgl.glfw.GLFW.GLFW_KEY_TAB;
-import static org.lwjgl.glfw.GLFW.GLFW_KEY_UP;
-import static org.lwjgl.glfw.GLFW.GLFW_KEY_V;
-import static org.lwjgl.glfw.GLFW.GLFW_KEY_X;
-import static org.lwjgl.glfw.GLFW.GLFW_KEY_Y;
-import static org.lwjgl.glfw.GLFW.GLFW_KEY_Z;
-import static org.lwjgl.glfw.GLFW.GLFW_MOUSE_BUTTON_1;
-import static org.lwjgl.glfw.GLFW.GLFW_MOUSE_BUTTON_2;
-import static org.lwjgl.glfw.GLFW.GLFW_MOUSE_BUTTON_3;
-import static org.lwjgl.glfw.GLFW.GLFW_MOUSE_BUTTON_4;
-import static org.lwjgl.glfw.GLFW.GLFW_MOUSE_BUTTON_5;
-import static org.lwjgl.glfw.GLFW.GLFW_PRESS;
-import static org.lwjgl.glfw.GLFW.GLFW_RELEASE;
-import static org.lwjgl.glfw.GLFW.GLFW_VRESIZE_CURSOR;
-import static org.lwjgl.glfw.GLFW.glfwCreateStandardCursor;
-import static org.lwjgl.glfw.GLFW.glfwGetClipboardString;
-import static org.lwjgl.glfw.GLFW.glfwGetCursorPos;
-import static org.lwjgl.glfw.GLFW.glfwSetCharCallback;
-import static org.lwjgl.glfw.GLFW.glfwSetClipboardString;
-import static org.lwjgl.glfw.GLFW.glfwSetCursor;
-import static org.lwjgl.glfw.GLFW.glfwSetInputMode;
-import static org.lwjgl.glfw.GLFW.glfwSetKeyCallback;
-import static org.lwjgl.glfw.GLFW.glfwSetMouseButtonCallback;
-import static org.lwjgl.glfw.GLFW.glfwSetScrollCallback;
+import static org.lwjgl.glfw.GLFW.*;
 
 public class IMGuiLayer
 {
@@ -88,6 +36,7 @@ public class IMGuiLayer
      * LWJGL3 renderer (SHOULD be initialized)
      */
     private final ImGuiImplGl3 imGuiGl3 = new ImGuiImplGl3();
+    private final ImGuiImplGlfw imGuiGlfw = new ImGuiImplGlfw();
 
     /**
      * Constructor
@@ -158,7 +107,6 @@ public class IMGuiLayer
         mouseCursors[ImGuiMouseCursor.NotAllowed] = glfwCreateStandardCursor(GLFW_ARROW_CURSOR);
 
         // GLFW callbacks to handle user input
-
         glfwSetKeyCallback(glfwWindow, (w, key, scancode, action, mods) -> {
             if (action == GLFW_PRESS)
             {
@@ -181,7 +129,8 @@ public class IMGuiLayer
         });
 
         glfwSetCharCallback(glfwWindow, (w, c) -> {
-            if (c != GLFW_KEY_DELETE) {
+            if (c != GLFW_KEY_DELETE)
+            {
                 io.addInputCharacter(c);
             }
         });
@@ -230,12 +179,14 @@ public class IMGuiLayer
             }
         });
 
-        // ------------------------------------------------------------
+
         // Fonts configuration
         // Read: https://raw.githubusercontent.com/ocornut/imgui/master/docs/FONTS.txt
 
         final ImFontAtlas fontAtlas = io.getFonts();
-        final ImFontConfig fontConfig = new ImFontConfig(); // Natively allocated object, should be explicitly destroyed
+
+        // Natively allocated object, should be explicitly destroyed
+        final ImFontConfig fontConfig = new ImFontConfig();
 
         // Glyphs could be added per-font as well as per config used globally like here
         fontConfig.setGlyphRanges(fontAtlas.getGlyphRangesDefault());
@@ -262,6 +213,7 @@ public class IMGuiLayer
         // Method initializes LWJGL3 renderer.
         // This method SHOULD be called after you've initialized your ImGui configuration (fonts and so on).
         // ImGui context should be created as well.
+        imGuiGlfw.init(glfwWindow, false);
         imGuiGl3.init("#version 330 core");
     }
 
@@ -269,12 +221,10 @@ public class IMGuiLayer
     {
         startFrame(dt);
 
-        // Any Dear ImGui code SHOULD go between ImGui.newFrame()/ImGui.render() methods
-        ImGui.newFrame();
         currentScene.sceneIMGUI();
 
-        //TODO: Remove this when it is no longer needed
-        ImGui.showDemoWindow();
+        // Demo window
+        //ImGui.showDemoWindow();
         ImGui.render();
 
         endFrame();
@@ -282,34 +232,22 @@ public class IMGuiLayer
 
     private void startFrame(final float deltaTime)
     {
-        // Get window properties and mouse position
-        float[] winWidth = {Window.getWidth()};
-        float[] winHeight = {Window.getHeight()};
-        double[] mousePosX = {0};
-        double[] mousePosY = {0};
-        glfwGetCursorPos(glfwWindow, mousePosX, mousePosY);
-
-        // We SHOULD call those methods to update Dear ImGui state for the current frame
-        final ImGuiIO io = ImGui.getIO();
-        io.setDisplaySize(winWidth[0], winHeight[0]);
-        io.setDisplayFramebufferScale(1f, 1f);
-        io.setMousePos((float) mousePosX[0], (float) mousePosY[0]);
-        io.setDeltaTime(deltaTime);
-
-        // Update the mouse cursor
-        final int imguiCursor = ImGui.getMouseCursor();
-        glfwSetCursor(glfwWindow, mouseCursors[imguiCursor]);
-        glfwSetInputMode(glfwWindow, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+        imGuiGlfw.newFrame();
+        ImGui.newFrame();
     }
 
+    /**
+     * After Dear ImGui prepared a draw data, we use it in the LWJGL3 renderer. At that moment ImGui will be rendered
+     * to the current OpenGL context.
+     */
     private void endFrame()
     {
-        // After Dear ImGui prepared a draw data, we use it in the LWJGL3 renderer.
-        // At that moment ImGui will be rendered to the current OpenGL context.
         imGuiGl3.renderDrawData(ImGui.getDrawData());
     }
 
-    // If you want to clean a room after yourself - do it by yourself
+    /**
+     * If you want to clean a room after yourself - do it by yourself
+     */
     private void destroyImGui()
     {
         imGuiGl3.dispose();

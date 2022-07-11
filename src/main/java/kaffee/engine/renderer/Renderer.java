@@ -31,7 +31,7 @@ public class Renderer
         boolean added = false;
         for(BatchRenderer batchRenderer: batchRenderers)
         {
-            if(batchRenderer.hasRoom())
+            if(batchRenderer.hasRoom() && batchRenderer.getzIndex() == spriteRenderer.gameObject.getZIndex())
             {
                 Texture texture = spriteRenderer.getTexture();
                 if(texture == null || (batchRenderer.hasTexture(texture) || batchRenderer.hasTextureRoom()))
@@ -43,8 +43,10 @@ public class Renderer
             }
         }
 
+        // If it wasn't able to be added then we need to create a new batch render
         if(!added)
         {
+            System.out.println("INFO: Creating new Batch Render with a Z-Index of '" + spriteRenderer.gameObject.getZIndex() + "'.");
             BatchRenderer newBatchRenderer = new BatchRenderer(MAX_BATCH_SIZE, spriteRenderer.gameObject.getZIndex());
             newBatchRenderer.start();
             batchRenderers.add(newBatchRenderer);

@@ -2,8 +2,8 @@ package kaffee.engine.components;
 
 import imgui.ImGui;
 import kaffee.engine.Transform;
-import kaffee.engine.renderer.Sprite;
 import kaffee.engine.renderer.Texture;
+import kaffee.engine.renderer.sprites.Sprite;
 import org.joml.Vector2f;
 import org.joml.Vector4f;
 
@@ -19,6 +19,12 @@ public class SpriteRenderer extends Component
     public void start()
     {
         this.lastTransform = gameObject.transform.copy();
+    }
+
+    @Override
+    public void stop()
+    {
+        isDirty = true;
     }
 
     @Override
@@ -77,5 +83,4 @@ public class SpriteRenderer extends Component
     {
         this.isDirty = false;
     }
-
 }

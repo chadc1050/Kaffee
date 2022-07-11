@@ -1,4 +1,4 @@
-package kaffee.engine.listener;
+package kaffee.engine.listeners;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;

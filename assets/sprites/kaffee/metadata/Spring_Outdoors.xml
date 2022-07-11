@@ -1,0 +1,9 @@
+<SpriteSheet>
+	<name>Spring Outdoors</name>
+	<sprite>
+		<topY>40</topY>
+		<bottomY>0</bottomY>
+		<leftX>320</leftX>
+		<rightX>400</rightX>
+	</sprite>
+</SpriteSheet>

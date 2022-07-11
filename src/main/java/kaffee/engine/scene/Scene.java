@@ -54,8 +54,8 @@ public abstract class Scene
             }
             else
             {
-                gameObjects.add(gameObject);
                 gameObject.start();
+                gameObjects.add(gameObject);
                 this.renderer.add(gameObject);
             }
         }
@@ -83,6 +83,24 @@ public abstract class Scene
         return this.camera;
     }
 
+    public void save(String filePath)
+    {
+        Gson gson = new GsonBuilder()
+                .setPrettyPrinting()
+                .registerTypeAdapter(Component.class, new ComponentDeserializer())
+                .registerTypeAdapter(GameObject.class, new GameObjectDeserializer())
+                .create();
+
+        try(FileWriter fileWriter = new FileWriter(filePath))
+        {
+            fileWriter.write(gson.toJson(this.gameObjects));
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
     public void saveExit()
     {
         Gson gson = new GsonBuilder()
@@ -91,7 +109,7 @@ public abstract class Scene
                 .registerTypeAdapter(GameObject.class, new GameObjectDeserializer())
                 .create();
 
-        try(FileWriter fileWriter = new FileWriter("assets/level.txt"))
+        try(FileWriter fileWriter = new FileWriter("assets/cachedLevelData.txt"))
         {
             fileWriter.write(gson.toJson(this.gameObjects));
         }
@@ -112,7 +130,7 @@ public abstract class Scene
         String inFile = "";
         try
         {
-            inFile = Files.readString(Paths.get("assets/level.txt"));
+            inFile = Files.readString(Paths.get("assets/cachedLevelData.txt"));
         }
         catch (IOException e)
         {
@@ -121,11 +139,7 @@ public abstract class Scene
 
         if(!StringUtils.isEmpty(inFile))
         {
-            GameObject[] gameObjects = gson.fromJson(inFile, GameObject[].class);
-            for(GameObject gameObject : gameObjects)
-            {
-                addGameObjectsToCurrentScene(gameObject);
-            }
+            addGameObjectsToCurrentScene(gson.fromJson(inFile, GameObject[].class));
         }
 
         this.loadedLevel = true;

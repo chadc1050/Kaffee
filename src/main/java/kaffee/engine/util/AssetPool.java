@@ -1,7 +1,7 @@
 package kaffee.engine.util;
 
 import kaffee.engine.renderer.Shader;
-import kaffee.engine.renderer.SpriteSheet;
+import kaffee.engine.renderer.sprites.SpriteSheet;
 import kaffee.engine.renderer.Texture;
 
 import java.io.File;
@@ -16,7 +16,6 @@ public class AssetPool
     private static Map<String, Shader> shaders = new HashMap<>();
     private static Map<String, Texture> textures = new HashMap<>();
     private static Map<String, SpriteSheet> spriteSheets = new HashMap<>();
-
 
     /**
      * Retrieves shader from asset pool.

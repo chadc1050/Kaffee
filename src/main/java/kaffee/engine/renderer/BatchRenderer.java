@@ -57,7 +57,8 @@ public class BatchRenderer implements Comparable<BatchRenderer>
         this.hasRoom = true;
     }
 
-    public void start() {
+    public void start()
+    {
         // Generate and bind a vertex array object.
         vaoID = glGenVertexArrays();
         glBindVertexArray(vaoID);
@@ -86,7 +87,8 @@ public class BatchRenderer implements Comparable<BatchRenderer>
         glEnableVertexAttribArray(3);
     }
 
-    public void addSprite(SpriteRenderer spriteRenderer) {
+    public void addSprite(SpriteRenderer spriteRenderer)
+    {
 
         // Get index and add render Object
         int index = this.nSprites;
@@ -101,12 +103,14 @@ public class BatchRenderer implements Comparable<BatchRenderer>
         // Add properties to local vertices array
         loadVertexProperties(index);
 
-        if (nSprites >= this.maxBatchSize) {
+        if (nSprites >= this.maxBatchSize)
+        {
             this.hasRoom = false;
         }
     }
 
-    private void loadVertexProperties(int index) {
+    private void loadVertexProperties(int index)
+    {
         SpriteRenderer spriteRenderer = this.sprites[index];
 
         // Find the offest within array (4 vertices per array)
@@ -116,9 +120,12 @@ public class BatchRenderer implements Comparable<BatchRenderer>
         Vector2f[] textureCoordinates = spriteRenderer.getTextureCoordinates();
 
         int textureID = 0;
-        if (spriteRenderer.getTexture() != null) {
-            for (int i = 0; i < textures.size(); i++) {
-                if (textures.get(i).equals(spriteRenderer.getTexture())) {
+        if (spriteRenderer.getTexture() != null)
+        {
+            for (int i = 0; i < textures.size(); i++)
+            {
+                if (textures.get(i).equals(spriteRenderer.getTexture()))
+                {
                     textureID = i + 1;
                     break;
                 }
@@ -164,7 +171,8 @@ public class BatchRenderer implements Comparable<BatchRenderer>
         }
     }
 
-    public void render() {
+    public void render()
+    {
         boolean rebufferData = false;
         for (int i = 0; i < nSprites; i++)
         {
@@ -189,7 +197,8 @@ public class BatchRenderer implements Comparable<BatchRenderer>
         shader.uploadMat4f("uProjection", Window.getCurrentScene().getCamera().getProjectionMatrix());
         shader.uploadMat4f("uView", Window.getCurrentScene().getCamera().getViewMatrix());
 
-        for (int i = 0; i < textures.size(); i++) {
+        for (int i = 0; i < textures.size(); i++)
+        {
             glActiveTexture(GL_TEXTURE0 + i + 1);
             textures.get(i).bind();
         }
@@ -206,14 +215,16 @@ public class BatchRenderer implements Comparable<BatchRenderer>
         glDisableVertexAttribArray(1);
         glBindVertexArray(0);
 
-        for (int i = 0; i < textures.size(); i++) {
+        for (int i = 0; i < textures.size(); i++)
+        {
             textures.get(i).unbind();
         }
 
         shader.detach();
     }
 
-    private int[] generateIndices() {
+    private int[] generateIndices()
+    {
         // Six indices per quad, three per triangle
         int[] elements = new int[6 * maxBatchSize];
         for (int i = 0; i < maxBatchSize; i++) {
@@ -223,7 +234,8 @@ public class BatchRenderer implements Comparable<BatchRenderer>
         return elements;
     }
 
-    private void loadElementIndices(int[] elements, int index) {
+    private void loadElementIndices(int[] elements, int index)
+    {
         int offsetArrayIndex = 6 * index;
         int offset = 4 * index;
 
@@ -239,7 +251,8 @@ public class BatchRenderer implements Comparable<BatchRenderer>
     }
 
     @Override
-    public int compareTo(BatchRenderer o) {
+    public int compareTo(BatchRenderer o)
+    {
         return Integer.compare(this.zIndex, o.zIndex);
     }
 
